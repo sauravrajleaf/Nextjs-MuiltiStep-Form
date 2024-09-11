@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+
 import { useContext } from "react";
 import FormContext from "../../components/FormContext";
 
@@ -8,8 +9,9 @@ export default function PersonalInfo() {
   const router = useRouter();
   const { formData, handleInputChange } = useContext(FormContext);
 
-  const nextStep = () => {
-    router.push("/account-details");
+  const nextPage = () => {
+    router.push("/account-info");
+    // <Link href="/account-info">Dashboard</Link>
   };
 
   return (
@@ -31,7 +33,29 @@ export default function PersonalInfo() {
         onChange={handleInputChange}
         required
       />
-      <button type="button" onClick={nextStep}>
+
+      <label>Date of Birth</label>
+      <input
+        type="date"
+        name="dob"
+        value={formData.dob}
+        onChange={handleInputChange}
+        required
+      />
+      <label htmlFor="city">City</label>
+      <select
+        name="city"
+        value={formData.city}
+        onChange={handleInputChange}
+        required
+      >
+        <option value="">Select a city</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Noida">Noida</option>
+        <option value="Hyderabad">Hyderabad</option>
+      </select>
+      <button type="button" onClick={nextPage}>
         Next
       </button>
     </form>

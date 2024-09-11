@@ -1,7 +1,17 @@
-export default function Preferences({ prevStep, handleInputChange, formData }) {
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import FormContext from "../../components/FormContext";
+
+export default function AccountInfo() {
+  const router = useRouter();
+  const { formData, handleInputChange, step } = useContext(FormContext);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    router.push("/thank-you");
   };
 
   return (
@@ -59,9 +69,9 @@ export default function Preferences({ prevStep, handleInputChange, formData }) {
       <button type="submit" onClick={handleSubmit}>
         Submit
       </button>
-      <button type="button" onClick={prevStep}>
+      {/* <button type="button" onClick={prevStep}>
         Previous
-      </button>
+      </button> */}
     </form>
   );
 }

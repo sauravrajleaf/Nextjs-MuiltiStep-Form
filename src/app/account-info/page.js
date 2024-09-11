@@ -1,9 +1,17 @@
-export default function AccountDetails({
-  prevStep,
-  nextStep,
-  handleInputChange,
-  formData,
-}) {
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import FormContext from "../../components/FormContext";
+
+export default function AccountInfo() {
+  const router = useRouter();
+  const { formData, handleInputChange, step } = useContext(FormContext);
+
+  const nextPage = () => {
+    router.push("/preferences-info");
+  };
+
   return (
     <form>
       <h2>Account Details</h2>
@@ -31,12 +39,12 @@ export default function AccountDetails({
         onChange={handleInputChange}
         required
       />
-      <button type="button" onClick={nextStep}>
+      <button type="button" onClick={nextPage}>
         Next
       </button>
-      <button type="button" onClick={prevStep}>
+      {/* <button type="button" onClick={prevStep}>
         Previous
-      </button>
+      </button> */}
     </form>
   );
 }

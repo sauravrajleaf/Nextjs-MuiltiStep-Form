@@ -22,6 +22,9 @@ export function FormProvider({ children }) {
     tnc: true,
   });
 
+  //   const nextStep = () => setStep(step + 1);
+  //   const prevStep = () => setStep(step - 1);
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -32,7 +35,13 @@ export function FormProvider({ children }) {
 
   return (
     <FormContext.Provider
-      value={{ formData, setFormData, step, setStep, handleInputChange }}
+      value={{
+        formData,
+        setFormData,
+        step,
+        setStep,
+        handleInputChange,
+      }}
     >
       {children}
     </FormContext.Provider>
