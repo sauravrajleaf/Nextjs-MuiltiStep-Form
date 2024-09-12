@@ -22,8 +22,8 @@ export function FormProvider({ children }) {
     tnc: true,
   });
 
-  //   const nextStep = () => setStep(step + 1);
-  //   const prevStep = () => setStep(step - 1);
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -41,6 +41,8 @@ export function FormProvider({ children }) {
         step,
         setStep,
         handleInputChange,
+        nextStep,
+        prevStep,
       }}
     >
       {children}

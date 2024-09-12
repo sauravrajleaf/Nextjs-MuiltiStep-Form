@@ -1,15 +1,22 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+
 import { useContext } from "react";
 import FormContext from "../../components/FormContext";
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, step } = useContext(FormContext);
+  const { formData, handleInputChange, nextStep, prevStep } =
+    useContext(FormContext);
 
   const nextPage = () => {
     router.push("/preferences-info");
+    nextStep();
+  };
+  const prevPage = () => {
+    router.back();
+    prevStep();
   };
 
   return (
@@ -42,9 +49,9 @@ export default function AccountInfo() {
       <button type="button" onClick={nextPage}>
         Next
       </button>
-      {/* <button type="button" onClick={prevStep}>
+      <button type="button" onClick={prevPage}>
         Previous
-      </button> */}
+      </button>
     </form>
   );
 }

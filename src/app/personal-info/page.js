@@ -7,11 +7,11 @@ import FormContext from "../../components/FormContext";
 
 export default function PersonalInfo() {
   const router = useRouter();
-  const { formData, handleInputChange } = useContext(FormContext);
+  const { formData, handleInputChange, nextStep } = useContext(FormContext);
 
   const nextPage = () => {
     router.push("/account-info");
-    // <Link href="/account-info">Dashboard</Link>
+    nextStep();
   };
 
   return (
