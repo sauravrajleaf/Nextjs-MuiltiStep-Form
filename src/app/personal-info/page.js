@@ -1,37 +1,46 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
 import { useContext, useEffect } from "react";
 import FormContext from "../../components/FormContext";
 
 import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
+import { personalInfoSchema } from "../../schemas/UserSchema";
 
 export default function PersonalInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData } = useContext(FormContext);
+  const { formData, handleInputChange, setFormData, errors, validateForm } =
+    useContext(FormContext);
 
   const keys = ["firstName", "lastName", "city", "dob"];
 
   useEffect(() => {
-    //Fetching from the local
     const res = getFromLocal(keys);
 
-    //Updating the state values to re-render
     setFormData({
       ...formData,
       ...res,
     });
-    console.log(res);
   }, []);
 
-  const nextPage = () => {
-    navigateToNextPage(router, "/account-info");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate form using Yup
+    const isValid = await validateForm(personalInfoSchema);
+
+    if (isValid) {
+      // If valid, proceed to the next page
+      navigateToNextPage(router, "/account-info");
+    } else {
+      console.log("Form is invalid, showing errors.");
+    }
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Personal Information</h2>
+
       <label>First Name</label>
       <input
         type="text"
@@ -40,6 +49,8 @@ export default function PersonalInfo() {
         onChange={handleInputChange}
         required
       />
+      {errors.firstName && <p style={{ color: "red" }}>{errors.firstName}</p>}
+
       <label>Last Name</label>
       <input
         type="text"
@@ -48,6 +59,7 @@ export default function PersonalInfo() {
         onChange={handleInputChange}
         required
       />
+      {errors.lastName && <p style={{ color: "red" }}>{errors.lastName}</p>}
 
       <label>Date of Birth</label>
       <input
@@ -57,6 +69,8 @@ export default function PersonalInfo() {
         onChange={handleInputChange}
         required
       />
+      {errors.dob && <p style={{ color: "red" }}>{errors.dob}</p>}
+
       <label htmlFor="city">City</label>
       <select
         name="city"
@@ -70,9 +84,9 @@ export default function PersonalInfo() {
         <option value="Noida">Noida</option>
         <option value="Hyderabad">Hyderabad</option>
       </select>
-      <button type="button" onClick={nextPage}>
-        Next
-      </button>
+      {errors.city && <p style={{ color: "red" }}>{errors.city}</p>}
+
+      <button type="submit">Next</button>
     </form>
   );
 }

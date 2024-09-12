@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import FormContext from "../../components/FormContext";
 
+import { accountsInfoSchema } from "../../schemas/UserSchema";
+
 import {
   navigateToNextPage,
   navigateToPrevPage,
@@ -13,7 +15,8 @@ import {
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData } = useContext(FormContext);
+  const { formData, handleInputChange, setFormData, validateForm } =
+    useContext(FormContext);
 
   const keys = ["username", "email"];
 
@@ -28,17 +31,26 @@ export default function AccountInfo() {
     console.log(res);
   }, []);
 
-  const nextPage = () => {
-    // saveInLocal(formData, keys);
-    navigateToNextPage(router, "/preferences-info");
-    // router.push("/preferences-info");
-  };
   const prevPage = () => {
     navigateToPrevPage(router);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate form using Yup
+    const isValid = await validateForm(accountsInfoSchema);
+
+    if (isValid) {
+      // If valid, proceed to the next page
+      navigateToNextPage(router, "/preferences-info");
+    } else {
+      console.log("Form is invalid, showing errors.");
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Account Details</h2>
       <label>Username</label>
       <input
@@ -64,9 +76,7 @@ export default function AccountInfo() {
         onChange={handleInputChange}
         required
       />
-      <button type="button" onClick={nextPage}>
-        Next
-      </button>
+      <button type="submit">Next</button>
       <button type="button" onClick={prevPage}>
         Previous
       </button>

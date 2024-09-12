@@ -3,12 +3,13 @@
 import { createContext, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import { saveInLocal } from "@/app/utils/FormUtils";
+import { saveInLocal } from "../app/utils/FormUtils";
 
 const FormContext = createContext();
 
 export function FormProvider({ children }) {
   const [step, setStep] = useState(1);
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -38,19 +39,36 @@ export function FormProvider({ children }) {
   }, [pathname]);
 
   const handleInputChange = (e) => {
-    //Updating the state
     setFormData({
       ...formData,
       [e.target.name]:
         e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
 
-    //saving to local storage
     if (e.target.name !== "password") {
       saveInLocal(
         e.target.name,
         e.target.type === "checkbox" ? e.target.checked : e.target.value
       );
+    }
+  };
+
+  // Custom validation logic using Yup
+  const validateForm = async (schema) => {
+    try {
+      await schema.validate(formData, { abortEarly: false }); // AbortEarly:false will return all errors
+
+      //No errors
+      setErrors({});
+      return true;
+    } catch (err) {
+      const newErrors = {};
+      err.inner.forEach((error) => {
+        newErrors[error.path] = error.message;
+      });
+      console.log(newErrors);
+      setErrors(newErrors); // Set the errors in state
+      return false;
     }
   };
 
@@ -62,6 +80,8 @@ export function FormProvider({ children }) {
         step,
         setStep,
         handleInputChange,
+        errors,
+        validateForm,
       }}
     >
       {children}
