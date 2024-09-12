@@ -26,7 +26,6 @@ export function FormProvider({ children }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log(pathname);
     if (pathname === "/personal-info") {
       setStep(1);
     } else if (pathname === "/account-info") {
@@ -37,6 +36,7 @@ export function FormProvider({ children }) {
   }, [pathname]);
 
   const handleInputChange = (e) => {
+    console.log(e.target.checked);
     setFormData({
       ...formData,
       [e.target.name]:

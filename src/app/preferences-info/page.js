@@ -1,21 +1,44 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+
 import FormContext from "../../components/FormContext";
+import {
+  saveInLocal,
+  navigateToNextPage,
+  navigateToPrevPage,
+  getFromLocal,
+} from "../utils/FormUtils";
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange } = useContext(FormContext);
+  const { formData, handleInputChange, setFormData } = useContext(FormContext);
+
+  const keys = [
+    "preferences",
+    "emailNotifications",
+    "smsNotifications",
+    "pushNotifications",
+  ];
+
+  useEffect(() => {
+    const res = getFromLocal(formData, keys);
+    setFormData({
+      ...formData,
+      ...res,
+    });
+    console.log(res);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    router.push("/thank-you");
+    saveInLocal(formData, keys);
+    navigateToNextPage(router, "/thank-you");
   };
 
   const prevPage = () => {
-    router.back();
+    navigateToPrevPage(router);
   };
 
   return (

@@ -2,18 +2,38 @@
 
 import { useRouter } from "next/navigation";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import FormContext from "../../components/FormContext";
+
+import {
+  saveInLocal,
+  navigateToNextPage,
+  navigateToPrevPage,
+  getFromLocal,
+} from "../utils/FormUtils";
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange } = useContext(FormContext);
+  const { formData, handleInputChange, setFormData } = useContext(FormContext);
+
+  const keys = ["username", "email"];
+
+  useEffect(() => {
+    const res = getFromLocal(formData, keys);
+    setFormData({
+      ...formData,
+      ...res,
+    });
+    console.log(res);
+  }, []);
 
   const nextPage = () => {
-    router.push("/preferences-info");
+    saveInLocal(formData, keys);
+    navigateToNextPage(router, "/preferences-info");
+    // router.push("/preferences-info");
   };
   const prevPage = () => {
-    router.back();
+    navigateToPrevPage(router);
   };
 
   return (
