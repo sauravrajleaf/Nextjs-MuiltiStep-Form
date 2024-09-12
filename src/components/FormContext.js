@@ -38,8 +38,6 @@ export function FormProvider({ children }) {
   }, [pathname]);
 
   const handleInputChange = (e) => {
-    console.log(e.target.checked);
-
     //Updating the state
     setFormData({
       ...formData,

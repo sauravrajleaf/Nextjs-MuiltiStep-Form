@@ -4,12 +4,21 @@ export const saveInLocal = (key, value) => {
 
 export const getFromLocal = (keys) => {
   const res = {};
-
+  const booleanKeys = [
+    "emailNotifications",
+    "smsNotifications",
+    "pushNotifications",
+  ];
   keys.forEach((key) => {
-    // console.key;
     const value = localStorage.getItem(key);
 
+    //Handle the null values
     res[key] = value !== null ? value : "";
+
+    //converting string values to boolean
+    if (booleanKeys.includes(key)) {
+      res[key] = value === "true";
+    }
   });
 
   return res;

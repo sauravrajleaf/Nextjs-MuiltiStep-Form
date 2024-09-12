@@ -22,7 +22,9 @@ export default function AccountInfo() {
   ];
 
   useEffect(() => {
+    //Fetching from the local
     const res = getFromLocal(keys);
+    //Updating the state values to re-render
     setFormData({
       ...formData,
       ...res,
@@ -32,6 +34,11 @@ export default function AccountInfo() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    //Clear the local storage values
+    localStorage.clear();
+
+    //Redirect
     navigateToNextPage(router, "/thank-you");
   };
 

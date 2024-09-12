@@ -18,7 +18,9 @@ export default function AccountInfo() {
   const keys = ["username", "email"];
 
   useEffect(() => {
+    //Fetching from the local
     const res = getFromLocal(keys);
+    //Updating the state values to re-render
     setFormData({
       ...formData,
       ...res,
