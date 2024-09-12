@@ -46,7 +46,7 @@ export default function AccountInfo() {
   };
 
   const prevPage = () => {
-    navigateToPrevPage(router, "/accounts-info");
+    navigateToPrevPage(router, "/account-info");
   };
 
   return (
