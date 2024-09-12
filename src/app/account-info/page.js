@@ -7,16 +7,13 @@ import FormContext from "../../components/FormContext";
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, nextStep, prevStep } =
-    useContext(FormContext);
+  const { formData, handleInputChange } = useContext(FormContext);
 
   const nextPage = () => {
     router.push("/preferences-info");
-    nextStep();
   };
   const prevPage = () => {
     router.back();
-    prevStep();
   };
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const FormContext = createContext();
 
@@ -22,8 +23,18 @@ export function FormProvider({ children }) {
     tnc: true,
   });
 
-  const nextStep = () => setStep(step + 1);
-  const prevStep = () => setStep(step - 1);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    console.log(pathname);
+    if (pathname === "/personal-info") {
+      setStep(1);
+    } else if (pathname === "/account-info") {
+      setStep(2);
+    } else if (pathname === "/preferences-info") {
+      setStep(3);
+    }
+  }, [pathname]);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -41,8 +52,6 @@ export function FormProvider({ children }) {
         step,
         setStep,
         handleInputChange,
-        nextStep,
-        prevStep,
       }}
     >
       {children}

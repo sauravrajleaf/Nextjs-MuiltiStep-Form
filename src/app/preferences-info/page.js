@@ -6,7 +6,7 @@ import FormContext from "../../components/FormContext";
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, prevStep } = useContext(FormContext);
+  const { formData, handleInputChange } = useContext(FormContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +16,6 @@ export default function AccountInfo() {
 
   const prevPage = () => {
     router.back();
-    prevStep();
   };
 
   return (
