@@ -29,5 +29,5 @@ export const navigateToNextPage = (router, nextRoute) => {
 };
 
 export const navigateToPrevPage = (router, prevRoute) => {
-  router.back(prevRoute);
+  router.push(prevRoute);
 };
