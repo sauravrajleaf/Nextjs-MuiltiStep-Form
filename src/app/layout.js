@@ -1,19 +1,14 @@
 import "./globals.css";
 
-import { FormProvider } from "../components/FormContext";
-import { ErrorProvider } from "../components/ErrorContext";
-
-import ProgressBar from "@/components/ProgressBar";
+import { FormProvider } from "../providers/FormContext";
+import { ErrorProvider } from "../providers/ErrorContext";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
         <FormProvider>
-          <ErrorProvider>
-            <ProgressBar />
-            {children}
-          </ErrorProvider>
+          <ErrorProvider>{children}</ErrorProvider>
         </FormProvider>
       </body>
     </html>

@@ -3,8 +3,9 @@
 import { useRouter } from "next/navigation";
 
 import { useContext, useEffect } from "react";
-import FormContext from "../../components/FormContext";
+import FormContext from "../../providers/FormContext";
 
+import FormLayout from "../../components/form-ui/FormLayout";
 import { accountsInfoSchema } from "../../schemas/UserSchema";
 
 import {
@@ -50,36 +51,38 @@ export default function AccountInfo() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Account Details</h2>
-      <label>Username</label>
-      <input
-        type="text"
-        name="username"
-        value={formData.username}
-        onChange={handleInputChange}
-        required
-      />
-      <label>Email</label>
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleInputChange}
-        required
-      />
-      <label>Password</label>
-      <input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleInputChange}
-        required
-      />
-      <button type="submit">Next</button>
-      <button type="button" onClick={prevPage}>
-        Previous
-      </button>
-    </form>
+    <FormLayout>
+      <form onSubmit={handleSubmit}>
+        <h2>Account Details</h2>
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          value={formData.username}
+          onChange={handleInputChange}
+          required
+        />
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
+        <button type="submit">Next</button>
+        <button type="button" onClick={prevPage}>
+          Previous
+        </button>
+      </form>
+    </FormLayout>
   );
 }

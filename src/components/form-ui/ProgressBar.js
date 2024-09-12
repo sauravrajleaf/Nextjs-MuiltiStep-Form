@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import FormContext from "../components/FormContext";
+import FormContext from "../../providers/FormContext";
 
 export default function ProgressBar({}) {
   const { step } = useContext(FormContext);
