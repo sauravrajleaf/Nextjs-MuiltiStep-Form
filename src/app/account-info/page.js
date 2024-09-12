@@ -31,11 +31,11 @@ export default function AccountInfo() {
       ...formData,
       ...res,
     });
-    console.log(res);
+    // console.log(res);
   }, []);
 
   const prevPage = () => {
-    navigateToPrevPage(router);
+    navigateToPrevPage(router, "/personal-info");
   };
 
   const handleSubmit = async (e) => {

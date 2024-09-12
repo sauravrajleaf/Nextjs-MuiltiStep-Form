@@ -66,7 +66,7 @@ export function FormProvider({ children }) {
       err.inner.forEach((error) => {
         newErrors[error.path] = error.message;
       });
-      console.log(newErrors);
+      // console.log(newErrors);
       setErrors(newErrors); // Set the errors in state
       return false;
     }

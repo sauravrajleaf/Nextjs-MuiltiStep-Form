@@ -28,6 +28,6 @@ export const navigateToNextPage = (router, nextRoute) => {
   router.push(nextRoute);
 };
 
-export const navigateToPrevPage = (router) => {
-  router.back();
+export const navigateToPrevPage = (router, prevRoute) => {
+  router.back(prevRoute);
 };

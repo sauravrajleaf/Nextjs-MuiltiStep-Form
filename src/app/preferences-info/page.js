@@ -32,7 +32,7 @@ export default function AccountInfo() {
       ...formData,
       ...res,
     });
-    console.log(res);
+    // console.log(res);
   }, []);
 
   const handleSubmit = (e) => {
@@ -46,7 +46,7 @@ export default function AccountInfo() {
   };
 
   const prevPage = () => {
-    navigateToPrevPage(router);
+    navigateToPrevPage(router, "/accounts-info");
   };
 
   return (
