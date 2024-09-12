@@ -1,16 +1,17 @@
-export const saveInLocal = (formData, keys) => {
-  keys.forEach((key) => {
-    localStorage.setItem(key, formData[key]);
-  });
+export const saveInLocal = (key, value) => {
+  localStorage.setItem(key, value);
 };
 
-export const getFromLocal = (formData, keys) => {
+export const getFromLocal = (keys) => {
   const res = {};
 
   keys.forEach((key) => {
-    console.key;
-    res[key] = localStorage.getItem(key, formData[key]);
+    // console.key;
+    const value = localStorage.getItem(key);
+
+    res[key] = value !== null ? value : "";
   });
+
   return res;
 };
 

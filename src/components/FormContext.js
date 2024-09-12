@@ -3,6 +3,8 @@
 import { createContext, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+import { saveInLocal } from "@/app/utils/FormUtils";
+
 const FormContext = createContext();
 
 export function FormProvider({ children }) {
@@ -37,11 +39,21 @@ export function FormProvider({ children }) {
 
   const handleInputChange = (e) => {
     console.log(e.target.checked);
+
+    //Updating the state
     setFormData({
       ...formData,
       [e.target.name]:
         e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
+
+    //saving to local storage
+    if (e.target.name !== "password") {
+      saveInLocal(
+        e.target.name,
+        e.target.type === "checkbox" ? e.target.checked : e.target.value
+      );
+    }
   };
 
   return (

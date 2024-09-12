@@ -5,7 +5,6 @@ import { useContext, useEffect } from "react";
 
 import FormContext from "../../components/FormContext";
 import {
-  saveInLocal,
   navigateToNextPage,
   navigateToPrevPage,
   getFromLocal,
@@ -23,7 +22,7 @@ export default function AccountInfo() {
   ];
 
   useEffect(() => {
-    const res = getFromLocal(formData, keys);
+    const res = getFromLocal(keys);
     setFormData({
       ...formData,
       ...res,
@@ -33,7 +32,6 @@ export default function AccountInfo() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveInLocal(formData, keys);
     navigateToNextPage(router, "/thank-you");
   };
 

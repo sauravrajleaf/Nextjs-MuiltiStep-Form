@@ -5,11 +5,7 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import FormContext from "../../components/FormContext";
 
-import {
-  navigateToNextPage,
-  saveInLocal,
-  getFromLocal,
-} from "../utils/FormUtils";
+import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
 
 export default function PersonalInfo() {
   const router = useRouter();
@@ -18,7 +14,10 @@ export default function PersonalInfo() {
   const keys = ["firstName", "lastName", "city", "dob"];
 
   useEffect(() => {
-    const res = getFromLocal(formData, keys);
+    //Fetching from the local
+    const res = getFromLocal(keys);
+
+    //Updating the state values to re-render
     setFormData({
       ...formData,
       ...res,
@@ -27,7 +26,6 @@ export default function PersonalInfo() {
   }, []);
 
   const nextPage = () => {
-    saveInLocal(formData, keys);
     navigateToNextPage(router, "/account-info");
   };
 

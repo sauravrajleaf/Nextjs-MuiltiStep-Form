@@ -6,7 +6,6 @@ import { useContext, useEffect } from "react";
 import FormContext from "../../components/FormContext";
 
 import {
-  saveInLocal,
   navigateToNextPage,
   navigateToPrevPage,
   getFromLocal,
@@ -19,7 +18,7 @@ export default function AccountInfo() {
   const keys = ["username", "email"];
 
   useEffect(() => {
-    const res = getFromLocal(formData, keys);
+    const res = getFromLocal(keys);
     setFormData({
       ...formData,
       ...res,
@@ -28,7 +27,7 @@ export default function AccountInfo() {
   }, []);
 
   const nextPage = () => {
-    saveInLocal(formData, keys);
+    // saveInLocal(formData, keys);
     navigateToNextPage(router, "/preferences-info");
     // router.push("/preferences-info");
   };
