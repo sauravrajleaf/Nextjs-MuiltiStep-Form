@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import FormContext from "../../providers/FormContext";
 
 import FormLayout from "../../components/form-ui/FormLayout";
+import ErrorSummary from "@/components/error-ui/ErrorSummary";
 
 import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
 import { personalInfoSchema } from "../../schemas/UserSchema";
@@ -41,6 +42,7 @@ export default function PersonalInfo() {
 
   return (
     <FormLayout>
+      <ErrorSummary />
       <form onSubmit={handleSubmit}>
         <h2>Personal Information</h2>
 
@@ -52,7 +54,6 @@ export default function PersonalInfo() {
           onChange={handleInputChange}
           required
         />
-        {errors.firstName && <p style={{ color: "red" }}>{errors.firstName}</p>}
 
         <label>Last Name</label>
         <input
@@ -62,7 +63,6 @@ export default function PersonalInfo() {
           onChange={handleInputChange}
           required
         />
-        {errors.lastName && <p style={{ color: "red" }}>{errors.lastName}</p>}
 
         <label>Date of Birth</label>
         <input
@@ -72,7 +72,6 @@ export default function PersonalInfo() {
           onChange={handleInputChange}
           required
         />
-        {errors.dob && <p style={{ color: "red" }}>{errors.dob}</p>}
 
         <label htmlFor="city">City</label>
         <select
@@ -87,7 +86,6 @@ export default function PersonalInfo() {
           <option value="Noida">Noida</option>
           <option value="Hyderabad">Hyderabad</option>
         </select>
-        {errors.city && <p style={{ color: "red" }}>{errors.city}</p>}
 
         <button type="submit">Next</button>
       </form>

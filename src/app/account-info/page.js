@@ -6,6 +6,8 @@ import { useContext, useEffect } from "react";
 import FormContext from "../../providers/FormContext";
 
 import FormLayout from "../../components/form-ui/FormLayout";
+import ErrorSummary from "@/components/error-ui/ErrorSummary";
+
 import { accountsInfoSchema } from "../../schemas/UserSchema";
 
 import {
@@ -52,6 +54,7 @@ export default function AccountInfo() {
 
   return (
     <FormLayout>
+      <ErrorSummary />
       <form onSubmit={handleSubmit}>
         <h2>Account Details</h2>
         <label>Username</label>
