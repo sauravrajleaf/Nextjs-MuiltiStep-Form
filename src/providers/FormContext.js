@@ -57,7 +57,7 @@ export function FormProvider({ children }) {
   // Custom validation logic using Yup
   const validateForm = async (schema) => {
     try {
-      console.log(formData);
+      // console.log(formData);
       await schema.validate(formData, { abortEarly: false }); // AbortEarly:false will return all errors
 
       //No errors
