@@ -2,11 +2,15 @@
 
 import { useRouter } from "next/navigation";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import FormContext from "../../providers/FormContext";
 import { accountsInfoSchema } from "../../schemas/UserSchema";
 import FormLayout from "../../components/form-ui/FormLayout";
 import ErrorSummary from "@/components/error-ui/ErrorSummary";
+
+import { Icon } from "react-icons-kit";
+import { eye } from "react-icons-kit/feather/eye";
+import { eyeOff } from "react-icons-kit/feather/eyeOff";
 
 import {
   navigateToNextPage,
@@ -37,6 +41,12 @@ export default function AccountInfo() {
     });
     // console.log(res);
   }, []);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const prevPage = () => {
     handlePrev();
@@ -91,16 +101,27 @@ export default function AccountInfo() {
               required
             />
           </div>
-          <div>
+          <div className="relative">
             <label className="block text-gray-600 mb-2">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleInputChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded pr-10" // Make sure there's padding-right for the icon
               required
             />
+
+            {/* Eye Icon */}
+            <span
+              onClick={handleTogglePassword}
+              className="absolute inset-y-12 right-2 flex items-center cursor-pointer"
+            >
+              <Icon
+                icon={showPassword ? eyeOff : eye}
+                className="h-5 w-5 text-gray-500"
+              />
+            </span>
           </div>
 
           <button
