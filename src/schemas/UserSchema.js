@@ -26,6 +26,8 @@ export const personalInfoSchema = Yup.object().shape({
 export const accountsInfoSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email address.")
+    .min(10, "Last name must be at least 2 characters long.")
+    .max(30, "Last name must be 1-10 characters long.")
     .required("Email is required")
     .matches(
       /^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/,
@@ -41,7 +43,7 @@ export const accountsInfoSchema = Yup.object().shape({
     ),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long.")
-    .max(50, "Password must be less than 50 characters."),
+    .max(20, "Password must be less than 50 characters."),
   // .matches(/[a-z]/, "Password must contain at least one lowercase letter.")
   // .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
   // .matches(/[0-9]/, "Password must contain at least one number.")
