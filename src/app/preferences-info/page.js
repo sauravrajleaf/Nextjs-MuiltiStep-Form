@@ -15,7 +15,7 @@ import {
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, handlePrev } =
+  const { formData, handleInputChange, setFormData, handlePrev, handleNext } =
     useContext(FormContext);
 
   const keys = [
@@ -38,9 +38,12 @@ export default function AccountInfo() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    handleNext();
 
     //Redirect
-    navigateToNextPage(router, "/thank-you");
+    setTimeout(() => {
+      navigateToNextPage(router, "/thank-you");
+    }, 1000);
   };
 
   const prevPage = () => {
