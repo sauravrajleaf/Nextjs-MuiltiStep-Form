@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import FormContext from "../../providers/FormContext";
 
 import FormLayout from "../../components/form-ui/FormLayout";
+import { preferencesInfoSchema } from "@/schemas/UserSchema";
 
 import {
   navigateToNextPage,
@@ -15,8 +16,14 @@ import {
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, handlePrev, handleNext } =
-    useContext(FormContext);
+  const {
+    formData,
+    handleInputChange,
+    setFormData,
+    handlePrev,
+    handleNext,
+    isValid,
+  } = useContext(FormContext);
 
   const keys = [
     "preferences",
@@ -38,12 +45,18 @@ export default function AccountInfo() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleNext();
+    if (isValid) {
+      handleNext();
 
-    //Redirect
-    setTimeout(() => {
-      navigateToNextPage(router, "/thank-you");
-    }, 1000);
+      //Redirect
+      setTimeout(() => {
+        navigateToNextPage(router, "/thank-you");
+      }, 1000);
+    } else {
+      console.log("Form is invalid, showing errors.");
+      console.log(errors.newErrors);
+      alert(errors.newErrors);
+    }
   };
 
   const prevPage = () => {

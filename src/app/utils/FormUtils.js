@@ -1,5 +1,6 @@
 import { personalInfoSchema } from "@/schemas/UserSchema";
 import { accountsInfoSchema } from "@/schemas/UserSchema";
+import { preferencesInfoSchema } from "@/schemas/UserSchema";
 
 export const saveInLocal = (key, value) => {
   localStorage.setItem(key, value);
@@ -15,12 +16,13 @@ export const getFromLocal = (keys) => {
   keys.forEach((key) => {
     const value = localStorage.getItem(key);
 
-    //Handle the null values
-    res[key] = value !== null ? value : "";
-
-    //converting string values to boolean
-    if (booleanKeys.includes(key)) {
-      res[key] = value === "true";
+    // Only assign the value if it is not null
+    if (value !== null) {
+      //converting boolean string values to boolean
+      if (booleanKeys.includes(key)) {
+        res[key] = value === "true";
+      }
+      res[key] = value;
     }
   });
 
@@ -41,6 +43,8 @@ export const getSchema = (pathname) => {
       return personalInfoSchema;
     case "/account-info":
       return accountsInfoSchema;
+    case "/preferences-info":
+      return preferencesInfoSchema;
     default:
       return personalInfoSchema;
   }
