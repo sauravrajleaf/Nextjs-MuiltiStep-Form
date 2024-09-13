@@ -10,6 +10,8 @@ export function FormProvider({ children }) {
   const [step, setStep] = useState(1); // Tracks step changes of form
   const [errors, setErrors] = useState({}); // Tracks errors of form
   const [progress, setProgress] = useState(0); // Tracks progress percentage
+  const [formTouched, setFormTouched] = useState(false); // Add this state
+  const [activeInput, setActiveInput] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -37,10 +39,25 @@ export function FormProvider({ children }) {
     } else if (pathname === "/preferences-info") {
       setStep(3);
     }
-  }, [pathname]);
 
-  // Form Input Handler -
-  const handleInputChange = (e) => {
+    // // Reset formTouched when the route changes
+    // setFormTouched(false);
+    console.log("here");
+    if (formTouched & activeInput) {
+      // Only run validation if form has been touched
+      console.log("here");
+      (async () => {
+        const res = await validateForm(getSchema(pathname), activeInput);
+        console.log(res);
+        setFormValid(res);
+      })();
+    }
+  }, [pathname, formData, formTouched]);
+
+  const handleInputChange = async (e) => {
+    // console.log(pathname);
+    setFormTouched(true); // Mark the form as touched when user interacts
+    setActiveInput(e.target.name);
     setFormData({
       ...formData,
       [e.target.name]:
@@ -58,6 +75,7 @@ export function FormProvider({ children }) {
   const validateForm = async (schema) => {
     try {
       // console.log(formData);
+      // console.log(formData);
       await schema.validate(formData, { abortEarly: false }); // AbortEarly:false will return all errors
 
       //No errors
@@ -68,7 +86,7 @@ export function FormProvider({ children }) {
       err.inner.forEach((error) => {
         newErrors[error.path] = error.message;
       });
-      // console.log(newErrors);
+      console.log(newErrors);
       setErrors(newErrors); // Set the errors in state
       return false;
     }
