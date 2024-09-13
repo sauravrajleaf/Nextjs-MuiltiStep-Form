@@ -57,24 +57,32 @@ export default function AccountInfo() {
         <FormLayout />
         <h2 className="text-xl font-bold text-gray-700 mb-4">Preferences</h2>
         <form className="space-y-4">
-          <label className="block text-gray-600">Choose Preferences</label>
+          <div>
+            <label className="block text-gray-600 mb-2">
+              Choose Preferences
+            </label>
 
-          <select
-            name="preferences"
-            value={formData.preferences}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded"
-          >
-            <option value="" disabled hidden>
-              Select a Preference
-            </option>
-            <option value="newsletter">Newsletter</option>
-            <option value="updates">Product Updates</option>
-            <option value="offers">Special Offers</option>
-          </select>
-          <label className="block text-gray-600">
-            How would you like to receive notifications?
-          </label>
+            <select
+              name="preferences"
+              value={formData.preferences}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
+            >
+              <option value="" disabled hidden>
+                Select a Preference
+              </option>
+              <option value="newsletter">Newsletter</option>
+              <option value="updates">Product Updates</option>
+              <option value="offers">Special Offers</option>
+            </select>
+          </div>
+
+          <div className="flex items-center">
+            <label className="block text-gray-600">
+              How would you like to receive notifications?
+            </label>
+          </div>
+
           <div className="flex items-center">
             <input
               type="checkbox"
