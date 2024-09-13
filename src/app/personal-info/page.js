@@ -11,7 +11,7 @@ import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
 
 export default function PersonalInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, validateForm } =
+  const { formData, handleInputChange, setFormData, validateForm, handleNext } =
     useContext(FormContext);
 
   const keys = ["firstName", "lastName", "city", "dob"];
@@ -32,6 +32,8 @@ export default function PersonalInfo() {
     const isValid = await validateForm(personalInfoSchema);
 
     if (isValid) {
+      //Increment progress
+      handleNext();
       // If valid, proceed to the next page
       navigateToNextPage(router, "/account-info");
     } else {

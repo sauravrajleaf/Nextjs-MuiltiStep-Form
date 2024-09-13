@@ -16,8 +16,14 @@ import {
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, validateForm } =
-    useContext(FormContext);
+  const {
+    formData,
+    handleInputChange,
+    setFormData,
+    validateForm,
+    handleNext,
+    handlePrev,
+  } = useContext(FormContext);
 
   const keys = ["username", "email"];
 
@@ -33,6 +39,7 @@ export default function AccountInfo() {
   }, []);
 
   const prevPage = () => {
+    handlePrev();
     navigateToPrevPage(router, "/personal-info");
   };
 
@@ -43,6 +50,8 @@ export default function AccountInfo() {
     const isValid = await validateForm(accountsInfoSchema);
 
     if (isValid) {
+      //Increment progress
+      handleNext();
       // If valid, proceed to the next page
       navigateToNextPage(router, "/preferences-info");
     } else {
