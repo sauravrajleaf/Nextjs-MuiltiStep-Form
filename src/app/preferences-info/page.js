@@ -15,7 +15,8 @@ import {
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData } = useContext(FormContext);
+  const { formData, handleInputChange, setFormData, handlePrev } =
+    useContext(FormContext);
 
   const keys = [
     "preferences",
@@ -38,14 +39,12 @@ export default function AccountInfo() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //Clear the local storage values
-    localStorage.clear();
-
     //Redirect
     navigateToNextPage(router, "/thank-you");
   };
 
   const prevPage = () => {
+    handlePrev();
     navigateToPrevPage(router, "/account-info");
   };
 

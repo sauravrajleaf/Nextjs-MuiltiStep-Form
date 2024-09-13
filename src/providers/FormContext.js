@@ -7,8 +7,9 @@ import { saveInLocal } from "../app/utils/FormUtils";
 const FormContext = createContext();
 
 export function FormProvider({ children }) {
-  const [step, setStep] = useState(1);
-  const [errors, setErrors] = useState({});
+  const [step, setStep] = useState(1); // Tracks step changes of form
+  const [errors, setErrors] = useState({}); // Tracks errors of form
+  const [progress, setProgress] = useState(0); // Tracks progress percentage
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -27,6 +28,7 @@ export function FormProvider({ children }) {
 
   const pathname = usePathname();
 
+  // Keeping track of the route change
   useEffect(() => {
     if (pathname === "/personal-info") {
       setStep(1);
@@ -37,6 +39,7 @@ export function FormProvider({ children }) {
     }
   }, [pathname]);
 
+  // Form Input Handler -
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -71,6 +74,18 @@ export function FormProvider({ children }) {
     }
   };
 
+  //Incremental increase/decrease of the progress bar
+  const handleNext = () => {
+    setStep((prevStep) => prevStep + 1); // Move to the next step
+    setProgress((prevProgress) => prevProgress + (1 / 3) * 100); // Increment the progress bar by one step
+  };
+
+  //Incremental increase/decrease of the progress bar
+  const handlePrev = () => {
+    setStep((prevStep) => prevStep - 1); // Move to the next step
+    setProgress((prevProgress) => prevProgress - (1 / 3) * 100); // Increment the progress bar by one step
+  };
+
   return (
     <FormContext.Provider
       value={{
@@ -78,9 +93,14 @@ export function FormProvider({ children }) {
         setFormData,
         step,
         setStep,
+        setErrors,
         handleInputChange,
         errors,
         validateForm,
+        progress,
+        setProgress,
+        handleNext,
+        handlePrev,
       }}
     >
       {children}
