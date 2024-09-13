@@ -11,6 +11,8 @@ export function FormProvider({ children }) {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [isValid, setFormValid] = useState(false);
+  const [formTouched, setFormTouched] = useState(false); // Add this state
+  const [activeInput, setActiveInput] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -38,15 +40,24 @@ export function FormProvider({ children }) {
       setStep(3);
     }
 
-    (async () => {
-      const res = await validateForm(getSchema(pathname));
-      console.log(res);
-      setFormValid(res);
-    })();
-  }, [pathname, formData]);
+    // // Reset formTouched when the route changes
+    // setFormTouched(false);
+    console.log("here");
+    if (formTouched & activeInput) {
+      // Only run validation if form has been touched
+      console.log("here");
+      (async () => {
+        const res = await validateForm(getSchema(pathname), activeInput);
+        console.log(res);
+        setFormValid(res);
+      })();
+    }
+  }, [pathname, formData, formTouched]);
 
   const handleInputChange = async (e) => {
     // console.log(pathname);
+    setFormTouched(true); // Mark the form as touched when user interacts
+    setActiveInput(e.target.name);
     setFormData({
       ...formData,
       [e.target.name]:
@@ -59,17 +70,12 @@ export function FormProvider({ children }) {
         e.target.type === "checkbox" ? e.target.checked : e.target.value
       );
     }
-
-    // Validate forms
-    const res = await validateForm(getSchema(pathname));
-    // console.log(res);
-    setFormValid(res);
   };
 
   // Custom validation logic using Yup
   const validateForm = async (schema) => {
     try {
-      console.log(formData);
+      // console.log(formData);
       await schema.validate(formData, { abortEarly: false }); // AbortEarly:false will return all errors
 
       //No errors
@@ -80,7 +86,7 @@ export function FormProvider({ children }) {
       err.inner.forEach((error) => {
         newErrors[error.path] = error.message;
       });
-      // console.log(newErrors);
+      console.log(newErrors);
       setErrors(newErrors); // Set the errors in state
       return false;
     }
