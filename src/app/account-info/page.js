@@ -8,8 +8,6 @@ import FormContext from "../../providers/FormContext";
 import FormLayout from "../../components/form-ui/FormLayout";
 import ErrorSummary from "@/components/error-ui/ErrorSummary";
 
-import { accountsInfoSchema } from "../../schemas/UserSchema";
-
 import {
   navigateToNextPage,
   navigateToPrevPage,
@@ -18,7 +16,7 @@ import {
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, validateForm } =
+  const { formData, handleInputChange, setFormData, isValid } =
     useContext(FormContext);
 
   const keys = ["username", "email"];
@@ -40,9 +38,6 @@ export default function AccountInfo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate form using Yup
-    const isValid = await validateForm(accountsInfoSchema);
 
     if (isValid) {
       // If valid, proceed to the next page
