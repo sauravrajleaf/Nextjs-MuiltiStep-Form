@@ -53,9 +53,24 @@ export function FormProvider({ children }) {
       })();
     }
   }, [pathname, formData, formTouched]);
+    // // Reset formTouched when the route changes
+    // setFormTouched(false);
+    console.log("here");
+    if (formTouched & activeInput) {
+      // Only run validation if form has been touched
+      console.log("here");
+      (async () => {
+        const res = await validateForm(getSchema(pathname), activeInput);
+        console.log(res);
+        setFormValid(res);
+      })();
+    }
+  }, [pathname, formData, formTouched]);
 
   const handleInputChange = async (e) => {
     // console.log(pathname);
+    setFormTouched(true); // Mark the form as touched when user interacts
+    setActiveInput(e.target.name);
     setFormTouched(true); // Mark the form as touched when user interacts
     setActiveInput(e.target.name);
     setFormData({
@@ -86,6 +101,7 @@ export function FormProvider({ children }) {
       err.inner.forEach((error) => {
         newErrors[error.path] = error.message;
       });
+      console.log(newErrors);
       console.log(newErrors);
       setErrors(newErrors); // Set the errors in state
       return false;
