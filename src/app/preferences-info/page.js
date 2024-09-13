@@ -63,7 +63,9 @@ export default function AccountInfo() {
             onChange={handleInputChange}
             className="w-full p-2 border border-gray-300 rounded"
           >
-            <option value="">Select a Preference</option>
+            <option value="" disabled hidden>
+              Select a Preference
+            </option>
             <option value="newsletter">Newsletter</option>
             <option value="updates">Product Updates</option>
             <option value="offers">Special Offers</option>

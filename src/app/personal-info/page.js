@@ -93,7 +93,9 @@ export default function PersonalInfo() {
             className="w-full p-2 border border-gray-300 rounded"
             required
           >
-            <option value="">Select a city</option>
+            <option value="" disabled hidden>
+              Select a city
+            </option>
             <option value="Delhi">Delhi</option>
             <option value="Bangalore">Bangalore</option>
             <option value="Noida">Noida</option>
