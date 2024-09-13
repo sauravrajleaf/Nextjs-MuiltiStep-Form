@@ -37,7 +37,13 @@ export function FormProvider({ children }) {
     } else if (pathname === "/preferences-info") {
       setStep(3);
     }
-  }, [pathname]);
+
+    (async () => {
+      const res = await validateForm(getSchema(pathname));
+      console.log(res);
+      setFormValid(res);
+    })();
+  }, [pathname, formData]);
 
   const handleInputChange = async (e) => {
     // console.log(pathname);
@@ -63,6 +69,7 @@ export function FormProvider({ children }) {
   // Custom validation logic using Yup
   const validateForm = async (schema) => {
     try {
+      console.log(formData);
       await schema.validate(formData, { abortEarly: false }); // AbortEarly:false will return all errors
 
       //No errors
