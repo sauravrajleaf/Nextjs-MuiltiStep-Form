@@ -10,8 +10,7 @@ export function FormProvider({ children }) {
   const [step, setStep] = useState(1); // Tracks step changes of form
   const [errors, setErrors] = useState({}); // Tracks errors of form
   const [progress, setProgress] = useState(0); // Tracks progress percentage
-  const [formTouched, setFormTouched] = useState(false); // Tracks if the form was interacted with
-  const [activeInput, setActiveInput] = useState(""); // Tracks which input is currently being interacted with
+
   const [isValid, setFormValid] = useState(false); // Tracks overall form validity
 
   const [formData, setFormData] = useState({
@@ -40,19 +39,9 @@ export function FormProvider({ children }) {
     } else if (pathname === "/preferences-info") {
       setStep(3);
     }
+  }, [pathname]);
 
-    //   (async () => {
-    //     const res = await validateForm(getSchema(pathname), activeInput); // Pass active input to validate form
-    //     setFormValid(res);
-    //   })();
-    // }
-  }, [pathname]); // Added `activeInput` to the dependencies
-
-  // Handle input changes, including tracking the currently active input field
   const handleInputChange = async (e) => {
-    setFormTouched(true); // Mark the form as touched when user interacts
-    setActiveInput(e.target.name); // Track the currently active input field
-
     setFormData({
       ...formData,
       [e.target.name]:
@@ -69,6 +58,7 @@ export function FormProvider({ children }) {
     // Validate the active input field only
     const res = await validateForm(getSchema(pathname), e.target.name);
 
+    //save form state in local
     saveInLocal("isValid", res);
   };
 
