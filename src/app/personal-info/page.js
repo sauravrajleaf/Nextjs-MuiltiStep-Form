@@ -42,8 +42,8 @@ export default function PersonalInfo() {
 
   return (
     <FormLayout>
-      <ErrorSummary />
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <ErrorSummary />
         <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
           <h2 className="text-xl font-bold text-gray-700 mb-4">
             Personal Information

@@ -25,10 +25,12 @@ export default function ErrorSummary() {
   }
 
   return (
-    <div style={{ color: "red", margin: "20px" }}>
-      <ul>
+    <div className=" bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg">
+      <ul className="list-disc pl-5">
         {Object.entries(errors).map(([field, error]) => (
-          <li key={field}>{error}</li>
+          <li key={field} className="text-sm font-semibold">
+            {error}
+          </li>
         ))}
       </ul>
     </div>
