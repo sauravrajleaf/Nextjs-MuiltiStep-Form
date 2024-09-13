@@ -4,11 +4,11 @@ import * as Yup from "yup";
 export const personalInfoSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, "First name must be at least 2 characters long.")
-    .max(11, "First name must be 1-10 characters long.")
+    .max(10, "First name must be 1-10 characters long.")
     .matches(/^[a-zA-Z]+$/, "First name should only contain letters."),
   lastName: Yup.string()
     .min(2, "Last name must be at least 2 characters long.")
-    .max(11, "Last name must be 1-10 characters long.")
+    .max(10, "Last name must be 1-10 characters long.")
     .matches(/^[a-zA-Z]+$/, "Last name should only contain letters."),
 
   dob: Yup.date()
@@ -34,7 +34,7 @@ export const accountsInfoSchema = Yup.object().shape({
 
   username: Yup.string()
     .min(3, "Username must be at least 3 characters long.")
-    .max(11, "Username must be 1-10 characters long.")
+    .max(10, "Username must be 1-10 characters long.")
     .matches(
       /^[a-zA-Z0-9]+$/,
       "Username can only contain letters and numbers."
