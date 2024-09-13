@@ -3,7 +3,7 @@
 import { createContext, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import { saveInLocal } from "../app/utils/FormUtils";
+import { saveInLocal, getSchema } from "../app/utils/FormUtils";
 const FormContext = createContext();
 
 export function FormProvider({ children }) {
@@ -11,11 +11,13 @@ export function FormProvider({ children }) {
   const [errors, setErrors] = useState({}); // Tracks errors of form
   const [progress, setProgress] = useState(0); // Tracks progress percentage
 
+  const [isValid, setFormValid] = useState(false); // Tracks overall form validity
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    dob: "",
+    dob: new Date().toISOString().split("T")[0],
     city: "",
     username: "",
     password: "",
@@ -39,51 +41,60 @@ export function FormProvider({ children }) {
     }
   }, [pathname]);
 
-  // Form Input Handler -
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     setFormData({
       ...formData,
       [e.target.name]:
         e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
+
     if (e.target.name !== "password") {
       saveInLocal(
         e.target.name,
         e.target.type === "checkbox" ? e.target.checked : e.target.value
       );
     }
+
+    // Validate the active input field only
+    const res = await validateForm(getSchema(pathname), e.target.name);
+
+    //save form state in local
+    saveInLocal("isValid", res);
   };
 
   // Custom validation logic using Yup
-  const validateForm = async (schema) => {
+  const validateForm = async (schema, field) => {
+    console.log(schema, field);
     try {
-      // console.log(formData);
-      await schema.validate(formData, { abortEarly: false }); // AbortEarly:false will return all errors
+      // Validate only the specific active field
+      await schema.validateAt(field, formData);
 
-      //No errors
+      // Clear errors for the specific field
       setErrors({});
+      setFormValid(true);
       return true;
     } catch (err) {
-      const newErrors = {};
-      err.inner.forEach((error) => {
-        newErrors[error.path] = error.message;
-      });
-      // console.log(newErrors);
-      setErrors(newErrors); // Set the errors in state
+      const newErrors = err.message;
+      console.log("err", err.message);
+
+      setFormValid(false);
+      setErrors({ newErrors }); // Set the errors in state
       return false;
     }
+
+    //set the state of the form in local storage
   };
 
-  //Incremental increase/decrease of the progress bar
+  // Incremental increase of the progress bar and moving to the next step
   const handleNext = () => {
-    setStep((prevStep) => prevStep + 1); // Move to the next step
-    setProgress((prevProgress) => prevProgress + (1 / 3) * 100); // Increment the progress bar by one step
+    setStep((prevStep) => prevStep + 1);
+    setProgress((prevProgress) => prevProgress + (1 / 3) * 100); // Increment progress based on steps
   };
 
-  //Incremental increase/decrease of the progress bar
+  // Incremental decrease of the progress bar and moving to the previous step
   const handlePrev = () => {
-    setStep((prevStep) => prevStep - 1); // Move to the next step
-    setProgress((prevProgress) => prevProgress - (1 / 3) * 100); // Increment the progress bar by one step
+    setStep((prevStep) => prevStep - 1);
+    setProgress((prevProgress) => prevProgress - (1 / 3) * 100); // Decrease progress based on steps
   };
 
   return (
@@ -101,6 +112,8 @@ export function FormProvider({ children }) {
         setProgress,
         handleNext,
         handlePrev,
+        isValid,
+        setFormValid,
       }}
     >
       {children}
