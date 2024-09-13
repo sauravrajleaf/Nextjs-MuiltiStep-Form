@@ -51,7 +51,7 @@ export default function PersonalInfo() {
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-gray-600">First Name</label>
+            <label className="block text-gray-600 mb-2">First Name</label>
             <input
               type="text"
               name="firstName"
@@ -61,50 +61,54 @@ export default function PersonalInfo() {
               required
             />
           </div>
+          <div>
+            <label className="block text-gray-600 mb-2">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 mb-2">Date of Birth</label>
+            <input
+              type="date"
+              name="dob"
+              value={formData.dob}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              max={
+                new Date(new Date().setFullYear(new Date().getFullYear() - 15))
+                  .toISOString()
+                  .split("T")[0]
+              }
+              required
+            />
+          </div>
 
-          <label className="block text-gray-600">Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-
-          <label className="block text-gray-600">Date of Birth</label>
-          <input
-            type="date"
-            name="dob"
-            value={formData.dob}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            max={
-              new Date(new Date().setFullYear(new Date().getFullYear() - 15))
-                .toISOString()
-                .split("T")[0]
-            }
-            required
-          />
-
-          <label htmlFor="city" className="block text-gray-600">
-            City
-          </label>
-          <select
-            name="city"
-            value={formData.city}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          >
-            <option value="" disabled hidden>
-              Select a city
-            </option>
-            <option value="Delhi">Delhi</option>
-            <option value="Bangalore">Bangalore</option>
-            <option value="Noida">Noida</option>
-            <option value="Hyderabad">Hyderabad</option>
-          </select>
+          <div>
+            <label htmlFor="city" className="block text-gray-600 mb-2">
+              City
+            </label>
+            <select
+              name="city"
+              value={formData.city}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            >
+              <option value="" disabled hidden>
+                Select a city
+              </option>
+              <option value="Delhi">Delhi</option>
+              <option value="Bangalore">Bangalore</option>
+              <option value="Noida">Noida</option>
+              <option value="Hyderabad">Hyderabad</option>
+            </select>
+          </div>
 
           <button
             type="submit"

@@ -68,33 +68,41 @@ export default function AccountInfo() {
           Account Details
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="block text-gray-600">Username</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-          <label className="block text-gray-600">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-          <label className="block text-gray-600">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
+          <div>
+            <label className="block text-gray-600 mb-2">Username</label>
+
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 mb-2">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 mb-2">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+
           <button
             type="submit"
             className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600"
