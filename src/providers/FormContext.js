@@ -3,13 +3,14 @@
 import { createContext, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import { saveInLocal } from "../app/utils/FormUtils";
+import { saveInLocal, getSchema } from "../app/utils/FormUtils";
 
 const FormContext = createContext();
 
 export function FormProvider({ children }) {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
+  const [isValid, setFormValid] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -38,7 +39,8 @@ export function FormProvider({ children }) {
     }
   }, [pathname]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
+    // console.log(pathname);
     setFormData({
       ...formData,
       [e.target.name]:
@@ -51,6 +53,11 @@ export function FormProvider({ children }) {
         e.target.type === "checkbox" ? e.target.checked : e.target.value
       );
     }
+
+    // Validate forms
+    const res = await validateForm(getSchema(pathname));
+    // console.log(res);
+    setFormValid(res);
   };
 
   // Custom validation logic using Yup
@@ -82,6 +89,7 @@ export function FormProvider({ children }) {
         handleInputChange,
         errors,
         validateForm,
+        isValid,
       }}
     >
       {children}

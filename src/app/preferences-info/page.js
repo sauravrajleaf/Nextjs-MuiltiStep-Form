@@ -72,7 +72,6 @@ export default function AccountInfo() {
             How would you like to receive notifications?
           </label>
           <div className="flex items-center">
-            <label className="mr-2 text-gray-600">Email</label>
             <input
               type="checkbox"
               name="emailNotifications"
@@ -80,9 +79,9 @@ export default function AccountInfo() {
               onChange={handleInputChange}
               className="h-5 w-5   border-gray-300 rounded"
             />
+            <label className="ml-2 text-gray-600">Email</label>
           </div>
           <div className="flex items-center">
-            <label className="mr-2 text-gray-600">SMS</label>
             <input
               type="checkbox"
               name="smsNotifications"
@@ -90,9 +89,9 @@ export default function AccountInfo() {
               onChange={handleInputChange}
               className="h-5 w-5   border-gray-300 rounded"
             />
+            <label className="ml-2 text-gray-600">SMS</label>
           </div>
           <div className="flex items-center">
-            <label className="mr-2 text-gray-600">Push Notifications</label>
             <input
               type="checkbox"
               name="pushNotifications"
@@ -100,12 +99,10 @@ export default function AccountInfo() {
               onChange={handleInputChange}
               className="h-5 w-5   border-gray-300 rounded"
             />
+            <label className="ml-2 text-gray-600">Push Notifications</label>
           </div>
 
           <div className="flex items-center">
-            <label className="mr-2 text-gray-600">
-              I have read the terms and conditions
-            </label>
             <input
               type="checkbox"
               name="tnc"
@@ -114,6 +111,9 @@ export default function AccountInfo() {
               disabled
               className="h-5 w-5  border-gray-300 rounded"
             />
+            <label className="italic ml-2 text-gray-600">
+              I have read the terms and conditions
+            </label>
           </div>
 
           <button

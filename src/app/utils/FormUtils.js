@@ -1,3 +1,6 @@
+import { personalInfoSchema } from "@/schemas/UserSchema";
+import { accountsInfoSchema } from "@/schemas/UserSchema";
+
 export const saveInLocal = (key, value) => {
   localStorage.setItem(key, value);
 };
@@ -30,4 +33,15 @@ export const navigateToNextPage = (router, nextRoute) => {
 
 export const navigateToPrevPage = (router, prevRoute) => {
   router.push(prevRoute);
+};
+
+export const getSchema = (pathname) => {
+  switch (pathname) {
+    case "/personal-info":
+      return personalInfoSchema;
+    case "/account-info":
+      return accountsInfoSchema;
+    default:
+      return personalInfoSchema;
+  }
 };

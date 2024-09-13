@@ -8,11 +8,10 @@ import FormLayout from "../../components/form-ui/FormLayout";
 import ErrorSummary from "@/components/error-ui/ErrorSummary";
 
 import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
-import { personalInfoSchema } from "../../schemas/UserSchema";
 
 export default function PersonalInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, validateForm } =
+  const { formData, handleInputChange, setFormData, isValid } =
     useContext(FormContext);
 
   const keys = ["firstName", "lastName", "city", "dob"];
@@ -29,9 +28,7 @@ export default function PersonalInfo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form using Yup
-    const isValid = await validateForm(personalInfoSchema);
-
+    // console.log(isValid);
     if (isValid) {
       // If valid, proceed to the next page
       navigateToNextPage(router, "/account-info");
@@ -78,6 +75,11 @@ export default function PersonalInfo() {
             value={formData.dob}
             onChange={handleInputChange}
             className="w-full p-2 border border-gray-300 rounded"
+            max={
+              new Date(new Date().setFullYear(new Date().getFullYear() - 15))
+                .toISOString()
+                .split("T")[0]
+            }
             required
           />
 
