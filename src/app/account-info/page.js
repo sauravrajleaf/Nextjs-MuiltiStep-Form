@@ -102,14 +102,6 @@ export default function AccountInfo() {
               required
             />
           </div>
-          <div>
-            <label className="block text-gray-600 mb-2">Confirm Password</label>
-            <input
-              type="text"
-              className="w-full p-2 border border-gray-300 rounded"
-              required
-            />
-          </div>
 
           <button
             type="submit"
