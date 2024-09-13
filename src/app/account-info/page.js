@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { useContext, useEffect } from "react";
 import FormContext from "../../providers/FormContext";
-
+import { accountsInfoSchema } from "../../schemas/UserSchema";
 import FormLayout from "../../components/form-ui/FormLayout";
 import ErrorSummary from "@/components/error-ui/ErrorSummary";
 
@@ -16,7 +16,7 @@ import {
 
 export default function AccountInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, isValid } =
+  const { formData, handleInputChange, setFormData, validateForm } =
     useContext(FormContext);
 
   const keys = ["username", "email"];
@@ -38,6 +38,9 @@ export default function AccountInfo() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate form using Yup
+    const isValid = await validateForm(accountsInfoSchema);
 
     if (isValid) {
       // If valid, proceed to the next page

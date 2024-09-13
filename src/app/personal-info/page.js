@@ -6,12 +6,12 @@ import FormContext from "../../providers/FormContext";
 
 import FormLayout from "../../components/form-ui/FormLayout";
 import ErrorSummary from "@/components/error-ui/ErrorSummary";
-
+import { personalInfoSchema } from "../../schemas/UserSchema";
 import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
 
 export default function PersonalInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, isValid } =
+  const { formData, handleInputChange, setFormData, validateForm } =
     useContext(FormContext);
 
   const keys = ["firstName", "lastName", "city", "dob"];
@@ -28,7 +28,9 @@ export default function PersonalInfo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log(isValid);
+    // Validate form using Yup
+    const isValid = await validateForm(personalInfoSchema);
+
     if (isValid) {
       // If valid, proceed to the next page
       navigateToNextPage(router, "/account-info");
