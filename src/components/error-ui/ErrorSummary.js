@@ -25,7 +25,7 @@ export default function ErrorSummary() {
   }
 
   return (
-    <div className=" bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg">
+    <div className=" bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg m-2">
       <ul className="list-disc pl-5">
         {Object.entries(errors).map(([field, error]) => (
           <li key={field} className="text-sm font-semibold">
