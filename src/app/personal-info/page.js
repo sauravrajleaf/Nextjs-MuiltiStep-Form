@@ -11,25 +11,41 @@ import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
 
 export default function PersonalInfo() {
   const router = useRouter();
-  const { formData, handleInputChange, setFormData, validateForm, handleNext } =
-    useContext(FormContext);
+  const {
+    formData,
+    handleInputChange,
+    setFormData,
+    isValid,
+    handleNext,
+    errors,
+    setErrors,
+    setFormValid,
+  } = useContext(FormContext);
 
   const keys = ["firstName", "lastName", "city", "dob"];
 
   useEffect(() => {
     const res = getFromLocal(keys);
 
-    setFormData({
-      ...formData,
-      ...res,
-    });
+    // Check if any valid values were fetched before setting the form data
+    if (Object.keys(res).length > 0) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        ...res,
+      }));
+    }
+
+    // Retrieve and set isValid state separately if it exists
+    const storedIsValid = localStorage.getItem("isValid");
+    if (storedIsValid !== null) {
+      setFormValid(storedIsValid === "true"); // Convert string to boolean
+    }
   }, []);
 
+  //on page refresh the state of
+  //lets save the last state of form in local state
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validate form using Yup
-    const isValid = await validateForm(personalInfoSchema);
 
     if (isValid) {
       //Increment progress
@@ -38,6 +54,8 @@ export default function PersonalInfo() {
       navigateToNextPage(router, "/account-info");
     } else {
       console.log("Form is invalid, showing errors.");
+      console.log(errors.newErrors);
+      alert(errors.newErrors);
     }
   };
 
@@ -81,7 +99,7 @@ export default function PersonalInfo() {
               onChange={handleInputChange}
               className="w-full p-2 border border-gray-300 rounded"
               max={
-                new Date(new Date().setFullYear(new Date().getFullYear() - 15))
+                new Date(new Date().setFullYear(new Date().getFullYear() - 16))
                   .toISOString()
                   .split("T")[0]
               }

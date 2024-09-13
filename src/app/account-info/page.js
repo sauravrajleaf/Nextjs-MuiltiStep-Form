@@ -20,9 +20,10 @@ export default function AccountInfo() {
     formData,
     handleInputChange,
     setFormData,
-    validateForm,
+    isValid,
     handleNext,
     handlePrev,
+    errors,
   } = useContext(FormContext);
 
   const keys = ["username", "email"];
@@ -46,9 +47,6 @@ export default function AccountInfo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form using Yup
-    const isValid = await validateForm(accountsInfoSchema);
-
     if (isValid) {
       //Increment progress
       handleNext();
@@ -56,6 +54,8 @@ export default function AccountInfo() {
       navigateToNextPage(router, "/preferences-info");
     } else {
       console.log("Form is invalid, showing errors.");
+      console.log(errors.newErrors);
+      alert(errors.newErrors);
     }
   };
 
