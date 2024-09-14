@@ -1,13 +1,13 @@
-
-# Project Title
+# Multistep Form aka Wizard form 🧙‍♂️🪄
 
 ## Overview 🗒️
-Multistep Form aka Wizard form 🧙‍♂️🪄
+
 _“Multi Step Form” is a sleek and responsive web application developed using **Next.js 14** . The form guides users through a step-by-step process to input personal details while ensuring a seamless user experience._
 
 ---
 
 ## Key Features 🎂
+
 - ✅**Step-by-Step Form Process**: Users are guided through a three-step form, making it easier to input data incrementally.
 - ✅**Responsive Design**: Fully optimized for mobile and desktop devices using **Tailwind CSS**.
 - ✅**Dynamic Validation**: Real-time form validation ensures data integrity.
@@ -17,13 +17,14 @@ _“Multi Step Form” is a sleek and responsive web application developed using
 ---
 
 ## Technologies Used
+
 List the key technologies, libraries, or frameworks that you used in the project. You can provide links or brief descriptions if needed. Example:
 
 - **Next.js 13**: For building a modern, server-side rendered React application.
 - **Tailwind CSS**: For easy, utility-first styling.
 - **Yup**: For form validation.
 - **React Context**: Context lets components pass information deep down without explicitly passing props.
- 
+
 ---
 
 ## Screenshots 📷🖼️
@@ -40,7 +41,6 @@ Image representing the form's error validation:
 
 ![Error Validation](https://github.com/user-attachments/assets/9bd2b0a7-7672-40b2-9bfd-5a36126cef03)
 
-
 ---
 
 **Progress Indicator**  
@@ -55,8 +55,8 @@ Fully optimized for mobile and desktop devices using **Tailwind CSS**.
 
 ![image](https://github.com/user-attachments/assets/1d411c56-8235-4d5a-9710-ae5f6bfd67c9)
 
-
 ---
+
 ## Features in Progress 😲😃⚒️
 
 1. **Multi-Step Progress Bar**  
@@ -65,14 +65,14 @@ Fully optimized for mobile and desktop devices using **Tailwind CSS**.
 2. **Dark Mode**  
    Developing a toggle for dark mode to enhance user experience in low-light environments.
 
-3. **Showing Password Strength**  
-   
+3. **Showing Password Strength**
+
 ---
 
 ## Bugs in Progress to Fix 🐞
 
 1. **🛠️ Fixing the Error State Persistence Issue**  
-   There are certain cases where the form's error state causes unexpected behavior. 
+   There are certain cases where the form's error state causes unexpected behavior.
 
    **🚨 Example Scenario**:  
    If a user makes a mistake on a specific step of the form and then decides to close the form without correcting it, the local storage retains the `isValid` state as `false`. When the user reopens the form and starts from the first step, even if the data on the initial step is correct, the system will not allow the user to proceed to the next step. This is because the form is still referencing the previously stored `isValid: false` state from the other step.
@@ -83,10 +83,10 @@ Fully optimized for mobile and desktop devices using **Tailwind CSS**.
 2. **Form Styling Issue**  
    There's an inconsistency in form rendering across different steps. Working on fixing the form size so that it stays consistent.
 
-
 ---
 
 ## Setup & Installation
+
 Provide clear and easy-to-follow steps to set up the project locally. Example:
 
 1. **Clone the Repository**:
@@ -95,11 +95,13 @@ Provide clear and easy-to-follow steps to set up the project locally. Example:
    cd project-name
    ```
 2. **Open the project in VS Code or editor of your choice**:
+
    ```
    code .
    ```
 
 3. **Install the packages via npm or yarn**:
+
    ```
    # If using npm
    npm install
@@ -107,12 +109,16 @@ Provide clear and easy-to-follow steps to set up the project locally. Example:
    #Or if using yarn
    yarn install
    ```
-3. **Run the application locally:**:
+
+4. **Run the application locally:**:
    ```bash
    # If using npm
    npm run dev
    # Or if using yarn
    yarn dev
+   ```
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
