@@ -6,7 +6,6 @@ import { useContext, useEffect } from "react";
 import FormContext from "../../providers/FormContext";
 
 import FormLayout from "../../components/form-ui/FormLayout";
-import { preferencesInfoSchema } from "@/schemas/UserSchema";
 
 import {
   navigateToNextPage,
@@ -51,7 +50,7 @@ export default function AccountInfo() {
       //Redirect
       setTimeout(() => {
         navigateToNextPage(router, "/thank-you");
-      }, 1000);
+      }, 500);
     } else {
       console.log("Form is invalid, showing errors.");
       console.log(errors.newErrors);
@@ -131,9 +130,8 @@ export default function AccountInfo() {
             <input
               type="checkbox"
               name="tnc"
-              readOnly={true}
-              defaultChecked={true}
-              disabled
+              checked={formData.tnc}
+              onChange={handleInputChange}
               className="h-5 w-5  border-gray-300 rounded"
             />
             <label className="italic ml-2 text-gray-600">

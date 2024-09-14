@@ -51,4 +51,5 @@ export const preferencesInfoSchema = Yup.object().shape({
   emailNotifications: Yup.boolean(),
   smsNotifications: Yup.boolean(),
   pushNotifications: Yup.boolean(),
+  tnc: Yup.boolean(),
 });

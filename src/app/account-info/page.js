@@ -28,6 +28,7 @@ export default function AccountInfo() {
     handleNext,
     handlePrev,
     errors,
+    setFormValid,
   } = useContext(FormContext);
 
   const keys = ["username", "email"];
@@ -36,14 +37,20 @@ export default function AccountInfo() {
     //Fetching from the local
     const res = getFromLocal(keys);
     //Updating the state values to re-render
-    setFormData({
-      ...formData,
-      ...res,
-    });
-    // console.log(res);
+    // Setting up form values if exits in local storage
+    if (Object.keys(res).length > 0) {
+      setFormData({
+        ...formData,
+        ...res,
+      });
+    }
+
+    // Retrieve and set isValid state if it exists
+    const storedIsValid = getFromLocal(["isValid"]);
+    setFormValid(storedIsValid);
   }, []);
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); //Tracks the password eye toggle button
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);

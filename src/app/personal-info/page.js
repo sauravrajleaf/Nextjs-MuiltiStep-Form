@@ -18,7 +18,6 @@ export default function PersonalInfo() {
     isValid,
     handleNext,
     errors,
-    setErrors,
     setFormValid,
   } = useContext(FormContext);
 
@@ -27,23 +26,19 @@ export default function PersonalInfo() {
   useEffect(() => {
     const res = getFromLocal(keys);
 
-    // Check if any valid values were fetched before setting the form data
+    // Setting up form values if exits in local storage
     if (Object.keys(res).length > 0) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
+      setFormData({
+        ...formData,
         ...res,
-      }));
+      });
     }
 
-    // Retrieve and set isValid state separately if it exists
-    const storedIsValid = localStorage.getItem("isValid");
-    if (storedIsValid !== null) {
-      setFormValid(storedIsValid === "true"); // Convert string to boolean
-    }
+    // Retrieve and set isValid state if it exists
+    const storedIsValid = getFromLocal(["isValid"]);
+    setFormValid(storedIsValid);
   }, []);
 
-  //on page refresh the state of
-  //lets save the last state of form in local state
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -98,9 +93,8 @@ export default function PersonalInfo() {
               value={formData.dob}
               onChange={handleInputChange}
               className="w-full p-2 border border-gray-300 rounded"
-              max={
-                new Date(new Date().setFullYear(new Date().getFullYear() - 16))
-              }
+              min="1930-01-01"
+              max="2010-12-31"
               required
             />
           </div>

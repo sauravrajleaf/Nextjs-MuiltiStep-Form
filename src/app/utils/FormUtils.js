@@ -12,6 +12,7 @@ export const getFromLocal = (keys) => {
     "emailNotifications",
     "smsNotifications",
     "pushNotifications",
+    "isValid",
   ];
   keys.forEach((key) => {
     const value = localStorage.getItem(key);
