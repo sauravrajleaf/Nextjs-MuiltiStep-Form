@@ -17,7 +17,7 @@ export function FormProvider({ children }) {
     firstName: "",
     lastName: "",
     email: "",
-    dob: new Date().toISOString().split("T")[0],
+    dob: "",
     city: "",
     username: "",
     password: "",

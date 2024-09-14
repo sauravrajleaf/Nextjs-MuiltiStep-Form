@@ -2,12 +2,15 @@ import { personalInfoSchema } from "@/schemas/UserSchema";
 import { accountsInfoSchema } from "@/schemas/UserSchema";
 import { preferencesInfoSchema } from "@/schemas/UserSchema";
 
+// key - single value
 export const saveInLocal = (key, value) => {
   localStorage.setItem(key, value);
 };
 
+// Keys - array
 export const getFromLocal = (keys) => {
   const res = {};
+
   const booleanKeys = [
     "emailNotifications",
     "smsNotifications",

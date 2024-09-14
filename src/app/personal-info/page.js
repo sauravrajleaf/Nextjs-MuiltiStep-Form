@@ -36,6 +36,7 @@ export default function PersonalInfo() {
 
     // Retrieve and set isValid state if it exists
     const storedIsValid = getFromLocal(["isValid"]);
+    console.log(storedIsValid);
     setFormValid(storedIsValid);
   }, []);
 
@@ -48,8 +49,6 @@ export default function PersonalInfo() {
       // If valid, proceed to the next page
       navigateToNextPage(router, "/account-info");
     } else {
-      console.log("Form is invalid, showing errors.");
-      console.log(errors.newErrors);
       alert(errors.newErrors);
     }
   };
@@ -95,6 +94,7 @@ export default function PersonalInfo() {
               className="w-full p-2 border border-gray-300 rounded"
               min="1930-01-01"
               max="2010-12-31"
+              placeholder="MM/DD/YYYY"
               required
             />
           </div>

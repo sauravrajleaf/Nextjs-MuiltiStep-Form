@@ -35,10 +35,12 @@ export default function AccountInfo() {
     //Fetching from the local
     const res = getFromLocal(keys);
     //Updating the state values to re-render
-    setFormData({
-      ...formData,
-      ...res,
-    });
+    if (Object.keys(res).length > 0) {
+      setFormData({
+        ...formData,
+        ...res,
+      });
+    }
     // console.log(res);
   }, []);
 
@@ -52,8 +54,6 @@ export default function AccountInfo() {
         navigateToNextPage(router, "/thank-you");
       }, 500);
     } else {
-      console.log("Form is invalid, showing errors.");
-      console.log(errors.newErrors);
       alert(errors.newErrors);
     }
   };

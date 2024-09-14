@@ -70,8 +70,6 @@ export default function AccountInfo() {
       // If valid, proceed to the next page
       navigateToNextPage(router, "/preferences-info");
     } else {
-      console.log("Form is invalid, showing errors.");
-      console.log(errors.newErrors);
       alert(errors.newErrors);
     }
   };
