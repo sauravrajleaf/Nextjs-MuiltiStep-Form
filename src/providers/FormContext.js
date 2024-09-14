@@ -64,7 +64,6 @@ export function FormProvider({ children }) {
 
   // Custom validation logic using Yup
   const validateForm = async (schema, field) => {
-    console.log(schema, field);
     try {
       // Validate only the specific active field
       await schema.validateAt(field, formData);
@@ -75,7 +74,6 @@ export function FormProvider({ children }) {
       return true;
     } catch (err) {
       const newErrors = err.message;
-      console.log("err", err.message);
 
       setFormValid(false);
       setErrors({ newErrors }); // Set the errors in state

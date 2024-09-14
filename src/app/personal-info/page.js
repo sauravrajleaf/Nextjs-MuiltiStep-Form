@@ -36,7 +36,6 @@ export default function PersonalInfo() {
 
     // Retrieve and set isValid state if it exists
     const storedIsValid = getFromLocal(["isValid"]);
-    console.log(storedIsValid);
     setFormValid(storedIsValid);
   }, []);
 
