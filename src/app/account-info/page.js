@@ -16,7 +16,7 @@ import {
   navigateToNextPage,
   navigateToPrevPage,
   getFromLocal,
-} from "../utils/FormUtils";
+} from "../../utils/FormUtils";
 
 export default function AccountInfo() {
   const router = useRouter();

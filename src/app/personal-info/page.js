@@ -6,8 +6,7 @@ import FormContext from "../../providers/FormContext";
 
 import FormLayout from "../../components/form-ui/FormLayout";
 import ErrorSummary from "@/components/error-ui/ErrorSummary";
-import { personalInfoSchema } from "../../schemas/UserSchema";
-import { navigateToNextPage, getFromLocal } from "../utils/FormUtils";
+import { navigateToNextPage, getFromLocal } from "../../utils/FormUtils";
 
 export default function PersonalInfo() {
   const router = useRouter();

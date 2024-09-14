@@ -3,7 +3,7 @@
 import { createContext, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import { saveInLocal, getSchema } from "../app/utils/FormUtils";
+import { saveInLocal, getSchema } from "../utils/FormUtils";
 
 const FormContext = createContext();
 
