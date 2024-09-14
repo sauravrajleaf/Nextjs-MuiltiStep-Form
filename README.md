@@ -21,7 +21,7 @@ List the key technologies, libraries, or frameworks that you used in the project
 
 - **Next.js 13**: For building a modern, server-side rendered React application.
 - **Tailwind CSS**: For easy, utility-first styling.
-- **Yup**: For form validation and state management.
+- **Yup**: For form validation.
 - **React Context**: Context lets components pass information deep down without explicitly passing props.
  
 ---
